@@ -25,8 +25,7 @@ COPY src /app
 # RUN apk --no-cache add --update my_binary_dependency
 RUN apk add --no-cache libstdc++ openjdk8
 RUN python -m spacy download en_core_web_lg
-RUN python3 -c 'import tika; tika.initVM(); tika.parser.from_file('/bin/bash')'
-
+RUN python3 -c 'import tika; from tika import parser;tika.initVM(); parser.from_file("/bin/sh")'; echo "tika prepared"
 # Finally, lets run our app!
 WORKDIR /app
 CMD python app.py --log-level DEBUG
